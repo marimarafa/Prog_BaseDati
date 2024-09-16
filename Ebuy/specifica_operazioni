@@ -1,0 +1,20 @@
+Specifica classe Utente:
+ 
+    Operazioni
+feedback_ricevuti(inizio : Data, fine : Data) : Feedback [0..*]
+pre-condizioni:
+post-condizioni:
+
+------------------------------------------------------
+PostAsta.bid_aggiudicatario()
+bid_aggiudicatario():Bid[0..1]
+
+Specifica classe PostAsta:
+     
+     Operazioni
+pre-condizioni:l’oggetto di invocazione (“this”) è coinvolto in almeno un link
+dell’associazione “bid_aggiudicatario"
+post-condizioni:
+		-sia b:Bid tale che (b,a):bid_asta
+		-b.istante > this.scadenza
+		result = b:Bid  

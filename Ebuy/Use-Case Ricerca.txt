@@ -1,0 +1,32 @@
+Use-case Ricerca
+
+Specifica delle operazioni
+
+
+1) oggetti_categorie(C: Categoria [1..*]): PostOggetto [0..*]
+ (dato un insieme di categorie C, deve restituire i PostOggetto la cui categoria appartiene a C).
+pre:
+	nessuna
+post:
+	- il risultato 'P' che sia l'insieme di oggetti p:PostOggetto che soddisfano le seguenti condizioni:
+		- appartiengono a un'insieme di link che soddisfano le seguenti condizioni:
+			- tale che (p,c:Categoria):cat_post.
+----------------------------------------------------------------------------------------------------------
+2) radici(): Categoria [1..*]
+(L'insieme delle categorie "radice", che cioè non hanno una sopra-categoria.)
+pre:
+	-esiste almeno un oggetto c:Categoria.
+post:
+	-il risultato 'C' che rappresenta l'insieme di oggetti c:Categoria che soddisfano le seguenti condizioni:
+		-non esiste un link tale che (c:figlia,m:madre):gerarchia
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+3) utenti_senza_bid(inizio: DataOra, fine: DataOra): Privato [0..*]
+(L'insieme di utenti privati che non hanno mai effettuato bid in un periodo dato.)
+pre:
+	inizio > bid.istante > fine
+post: 
+	-il risultato 'U' l'insieme di oggetti u:UtentePrivato che soddisfano le seguenti condizioni:
+		- non esiste un link tale che(u,b):bidder
+	
+		
+	

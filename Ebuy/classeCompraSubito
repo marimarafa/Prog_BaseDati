@@ -1,0 +1,10 @@
+acquierente():UtentePrivato
+
+specifica classe CompraSubito
+
+	pre:
+		nessuna
+	post:
+	- sia result:UtentePrivato tale che :
+		-(result,this):acquista
+

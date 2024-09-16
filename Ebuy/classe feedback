@@ -1,0 +1,6 @@
+[V.Feedback.feedback_oggetto]
+	Per ogni f:Feedback tale che (f,p:PostOggetto):riguarda, deve essere:
+		-se p è un istanza di c:CompraSubito deve esistere:
+			- tale che (c:u):acquista.
+		-se p è un istanza di a:PostAsta deve esistere:
+			-bid aggiudicatario che restituisce un valore.

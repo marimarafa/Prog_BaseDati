@@ -1,0 +1,22 @@
+*specifica classe CompraSubito
+
+acquierente():UtentePrivato
+
+	pre:
+		nessuna
+	post:
+	- sia result:UtentePrivato tale che :
+		-(result,this):acquista
+---------------------------------------------------
+*specifica classe PostAsta
+ 
+acquierente():UtentePrivato
+	pre:
+	  this.scadenza < adesso
+	post:
+	- sia result:UtentePrivato tale che:
+		- (u, bid_aggiudicatario()):bidder  
+	
+
+
+
