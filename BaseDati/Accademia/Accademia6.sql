@@ -29,20 +29,44 @@ and pr.nome = 'Pegasus'
 and ap.persona = p.id
 group by p.nome ,p.cognome , p.id
 
+--query6
+select p.id as id_persona ,p.nome , p.cognome , sum(anp.OreDurata) as ore_didattica
+from AttivitaNonProgettuale as anp,Persona as p
+where p.id = anp.persona
+and anp.tipo = 'Didattica'
+group by p.id
 
+--query7
+select avg(p.stipendio) as media , max(p.stipendio) as massimo , min(p.stipendio) as minimo
+from Persona as p
+where p.posizione = 'Ricercatore'
 
+--query8
+select p.posizione , avg(p.stipendio) as media , min(p.stipendio) as minimo , max(p.stipendio) as massimo 
+from Persona as p 
+group by p.posizione
 
+--query9
+select pr.id as id_progetto , pr.nome as progetto , sum(ap.OreDurata) as totale_ore
+from Persona as p , AttivitaProgetto as ap , Progetto as pr
+where p.nome = 'Ginevra'
+and p.cognome = 'Riva'
+and ap.persona = p.id
+and pr.id = ap.progetto
+group by pr.id
 
+--query10
+select  pr.id as id_progetto ,pr.nome as progetto
+from Progetto as pr ,Persona as p , AttivitaProgetto as ap
+where p.id = ap.persona
+and pr.id = ap.progetto
+group by pr.id 
+having count(ap.persona) > 2
 
-
-
-
-
-6. Qual è il numero totale di ore dedicate alla didattica da ogni docente?
-7. Qual è la media, il massimo e il minimo degli stipendi dei ricercatori?
-8. Quali sono le medie, i massimi e i minimi degli stipendi dei ricercatori, dei professori
-associati e dei professori ordinari?
-9. Quante ore ‘Ginevra Riva’ ha dedicato ad ogni progetto nel quale ha lavorato?
-10. Qual è il nome dei progetti su cui lavorano più di due strutturati?
-11. Quali sono i professori associati che hanno lavorato su più di un progetto?
-
+--query11
+select p.id as id_persona , p.nome ,p.cognome
+from Persona as p , AttivitaProgetto as ap
+where p.id = ap.persona
+and p.posizione = 'Professore Associato'
+group by p.id 
+having count(ap.progetto) > 1
