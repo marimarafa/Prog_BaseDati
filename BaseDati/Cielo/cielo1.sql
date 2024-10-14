@@ -1,60 +1,73 @@
-CREATE DATABASE Cielo;
+--query1
+select codice,comp
+from Volo
+where durataMinuti > 3*60;
 
-begin transaction;
+--query2
+select distinct comp
+from Volo
+where durataMinuti > 3*60;
 
-create domain PosInteger as integer check (value >= 0);
+--query3
+select codice,comp
+from ArrPart
+where partenza = 'CIA';
 
-create domain StringaM as varchar(100);
+--query4
+select distinct comp
+from ArrPart
+where arrivo = 'FCO';
 
-create domain CodIATA as
-  char(3);
+--query5
+select codice ,comp
+from ArrPart
+where partenza = 'FCO'
+and arrivo = 'JFK';
 
+--query6
+select comp
+from ArrPart
+where partenza = 'FCO'
+and arrivo = 'JFK';
 
+--query7
+select distinct comp
+from LuogoAeroporto as l1, LuogoAeroporto as l2, ArrPart as a
+where l1.citta = 'Roma'
+and l2.citta = 'New York'
+and l1.aeroporto = a.partenza 
+and l2.aeroporto = a.arrivo;
 
-create table Compagnia(
-  nome StringaM not null,
-  annoFondaz PosInteger null,
-  primary key (nome)
-);
+--query8
+select ar.codice as codiceIATA , ar.nome,l.citta
+from ArrPart as a , Aeroporto as ar,LuogoAeroporto as l
+where a.comp = 'MagicFly'
+and a.partenza = ar.codice
+and l.aeroporto = ar.codice;
 
-create table Aeroporto (
-  codice CodIATA not null,
-  nome StringaM not null,
-  primary key (codice)  
-);
+--query9
+select a.codice , a.comp , a.partenza , a.arrivo
+from ArrPart as a, LuogoAeroporto as l1,LuogoAeroporto as l2
+where a.partenza = l1.aeroporto
+and l1.citta = 'Roma'
+and a.arrivo = l2.aeroporto
+and l2.citta = 'New York'
 
-create table LuogoAeroporto (
-    aeroporto CodIATA not null,
-    citta StringaM not null,
-    nazione StringaM not null,
-    primary key (aeroporto),
-    foreign key (aeroporto) references Aeroporto(codice) deferrable
-);
+--query10
+select distinct a1.comp ,a1.codice as codice_volo1, a1.partenza, a1.arrivo as scalo, a2.codice as codice_volo2, a2.arrivo
+from ArrPart as a1 ,ArrPart as a2 , LuogoAeroporto as l1 ,LuogoAeroporto as l2 
+where a1.partenza = l1.aeroporto
+and l1.citta = 'Roma'
+and a2.arrivo = l2.aeroporto
+and l2.citta = 'New York'
+and a1.comp = a2.comp
+and a1.arrivo = a2.partenza 
 
-alter table Aeroporto
-add foreign key (codice) references LuogoAeroporto(aeroporto) deferrable;
+--query11
+select comp
+from  Compagnia as c, ArrPart as a
+where a.partenza = 'FCO'
+and a.arrivo = 'JFK'
+and a.comp = c.nome
+and c.annoFondaz is NOT NULL
 
-create table ArrPart (
-  codice PosInteger not null,
-  comp StringaM not null,
-  arrivo CodIATA not null,
-  partenza CodIATA not null,
-  primary key (codice, comp),
-  foreign key (arrivo) references Aeroporto(codice) deferrable,
-  foreign key (partenza) references Aeroporto(codice) deferrable
-);
-
-create table Volo (
-  codice PosInteger not null,
-  comp StringaM not null,
-  durataMinuti PosInteger not null,
-  primary key (codice, comp),
-  foreign key (comp) references Compagnia(nome) deferrable,
-  foreign key (codice, comp) references ArrPart(codice, comp) deferrable
-);
-
-alter table ArrPart
-add foreign key (codice, comp) references Volo(codice, comp) deferrable;
-
-
-commit;

@@ -1,0 +1,13 @@
+*Officina(_id_:integer,nome_varchar,indirizzo:Indirizzo)
+	primary key(id)
+
+
+*Dipendente(__staff:Codicefiscale__)
+	primary key(staff)
+	FK: staff references Staff(persona)
+     v. inclusione: Dipendente(staff) occorre in lavora(Dipendente)
+
+*Lavora(_officina:integer_ , _dipendente:CodiceFiscale_, data_assunzione:date)
+	FK: officina references Officina(id)
+	FK: dipendente references Dipendente(staff)
+	
