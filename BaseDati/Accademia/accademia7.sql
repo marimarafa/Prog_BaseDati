@@ -14,22 +14,21 @@ FROM Persona AS p , r
 WHERE p.posizione = 'Ricercatore'
   AND p.stipendio > r.media_stipedio
 
---query3 ///////////
-3. Per ogni categoria di strutturati quante sono le persone 
-con uno stipendio che
-differisce di al massimo una deviazione standard dalla media 
-della loro categoria?
+--query3 
 WITH s as (
     SELECT p.posizione,
-    STDDEV_SAMP(p.stipendio) as dev ,
+    STDDEV_SAMP(p.stipendio) as dev, 
     avg(p.stipendio) as med
     FROM Persona as p
     GROUP BY p.posizione
 )
-SELECT p.posizione , count(p.posizione)
+SELECT p.posizione , count(p.id)
 FROM Persona as p , s
-GROUP BY p.posizione , s.dev
-HAVING 
+WHERE p.stipendio <=(s.med + s.dev) 
+AND p.stipendio >=(s.med - s.dev)
+AND p.posizione = s.posizione
+GROUP BY p.posizione , s.dev 
+
 
 --query4
 SELECT p.* , sum(ap.OreDurata)
@@ -38,19 +37,16 @@ WHERE p.id = ap.persona
 GROUP BY p.id 
 HAVING sum(ap.OreDurata) >= 20 
 
---query5 ////////
-5. Quali sono i progetti la cui durata è superiore alla media
- delle durate di tutti i
-progetti? Restituire nome dei progetti e loro durata in giorni.
+--query5 
 WITH d_pr as (
-    SELECT sum(ap.OreDurata) as durata_progetti
-    FROM AttivitaProgetto as ap
+    SELECT avg(p.fine - p.inizio) as durata_progetti
+    FROM Progetto as p
 )
-SELECT  pr.nome , ap.OreDurata / 24 as durata_giorni
-FROM AttivitaProgetto as ap , Progetto as pr , d_pr
-WHERE ap.progetto = pr.id
-GROUP BY pr.nome , ap.OreDurata
-HAVING avg(d_pr.durata_progetti) < ap.OreDurata
+SELECT p.nome
+FROM Progetto as p , d_pr
+WHERE (p.fine - p.inizio) > d_pr.durata_progetti
+
+
 
 --query6
 SELECT pr.id , pr.nome , sum(ap.OreDurata) as ore_dimostrazione
