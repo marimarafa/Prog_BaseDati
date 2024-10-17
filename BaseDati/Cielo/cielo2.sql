@@ -15,7 +15,8 @@ AND v.durataMinuti >= 100;
 --query3
 SELECT la.nazione, count(distinct la.aeroporto) as num_aeroporti
 FROM LuogoAeroporto as la , ArrPart as ap
-WHERE la.aeroporto = ap.partenza
+WHERE la.aeroporto = ap.partenza 
+OR la.aeroporto = ap.arrivo
 AND ap.comp = 'Apitalia'
 GROUP BY la.nazione;
 
@@ -32,10 +33,11 @@ AND a.codice = ap.partenza
 GROUP BY (a.codice);
 
 --query6
-SELECT la.nazione , count(distinct ap.partenza)
+SELECT la.nazione , count(distinct la2.nazione)
 FROM LuogoAeroporto as la , ArrPart as ap ,LuogoAeroporto as la2
 WHERE la.aeroporto = ap.partenza
 AND ap.arrivo = la2.aeroporto
+AND la.nazione <> la2.nazione
 GROUP BY la.nazione;
 
 --query7
