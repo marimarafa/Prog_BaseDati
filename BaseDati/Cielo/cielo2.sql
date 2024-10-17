@@ -31,7 +31,7 @@ WHERE ap.comp = c.nome
 AND a.codice = ap.partenza
 GROUP BY (a.codice);
 
---query6 ////
+--query6
 SELECT la.nazione , count(distinct ap.partenza)
 FROM LuogoAeroporto as la , ArrPart as ap ,LuogoAeroporto as la2
 WHERE la.aeroporto = ap.partenza
@@ -56,6 +56,7 @@ GROUP BY c.nome;
 SELECT a.codice, a.nome
 FROM Aeroporto as a , ArrPart as ap
 WHERE a.codice = ap.partenza
+OR a.codice = ap.arrivo
 GROUP BY a.codice
 HAVING count(DISTINCT ap.comp) = 2;
 
