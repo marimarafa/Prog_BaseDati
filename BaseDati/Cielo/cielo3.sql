@@ -20,27 +20,52 @@ GROUP BY v.comp
 HAVING  avg(d_voli.durata_voli ) < avg(v.durataMinuti)
 
 --query3
-3. Quali sono le città dove il numero totale di voli in arrivo è maggiore del numero
-medio dei voli in arrivo per ogni città?
-
-WITH voli_arr as (
-    SELECT count(ap.arrivo) as num_voli
-    FROM  ArrPArt as ap
-)
-SELECT la.citta 
-FROM LuogoAeroporto as la , ArrPart as ap , voli_arr
-WHERE la.aeroporto = ap.arrivo  
+WITH num_voli as (
+SELECT la.citta , count(ap.arrivo) as num_arr
+FROM ArrPart as ap , LuogoAeroporto as la
+WHERE ap.arrivo = la.aeroporto
 GROUP BY la.citta
-HAVING count(ap.arrivo) > avg(voli_arr.num_voli)
+),
+media_voli as (
+    SELECT avg(num_voli.num_arr) as med_arr
+    FROM num_voli 
+)
+SELECT nv.citta , nv.num_arr
+FROM num_voli as nv, media_voli as mv
+WHERE nv.num_arr > mv.med_arr
 
+--query4
+WITH part_ita as (
+    SELECT ap.comp , avg(v.durataMinuti) as med_part
+    FROM LuogoAeroporto as la , ArrPart as ap , Volo as v
+    WHERE la.aeroporto = ap.partenza
+    AND v.codice = ap.codice
+    AND la.nazione = 'Italy'
+    GROUP BY ap.comp
+),
+media_tot as ( 
+    SELECT avg(v.durataMinuti) as med_voli
+    FROM LuogoAeroporto as la , ArrPart as ap , Volo as v
+    WHERE la.aeroporto = ap.partenza
+    AND v.codice = ap.codice
+    AND la.nazione = 'Italy'
+    )
+SELECT pa.comp , mt.med_voli
+FROM part_ita as pa , media_tot as mt
+WHERE pa.med_part < mt.med_voli
 
-
-
-4. Quali sono le compagnie aeree che hanno voli in partenza da aeroporti in Italia con
-una durata media inferiore alla durata media di tutti i voli in partenza da aeroporti
-in Italia?
+--query5
 5. Quali sono le città i cui voli in arrivo hanno una durata media che differisce di più
 di una deviazione standard dalla durata media di tutti i voli? Restituire città e
 durate medie dei voli in arrivo.
+
+SELECT
+FROM
+WHERE
+
+
+
+
+
 6. Quali sono le nazioni che hanno il maggior numero di città dalle quali partono voli
 diretti in altre nazioni?
