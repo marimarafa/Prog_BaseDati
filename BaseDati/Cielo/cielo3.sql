@@ -59,9 +59,26 @@ WHERE pa.med_part < mt.med_voli
 di una deviazione standard dalla durata media di tutti i voli? Restituire città e
 durate medie dei voli in arrivo.
 
-SELECT
-FROM
-WHERE
+WITH media_voli as (
+SELECT la.citta , avg(v.durataMinuti)
+FROM LuogoAeroporto as la , Volo as v , ArrPart as ap
+WHERE la.aeroporto = v.codice 
+AND ap.partenza = la.aeroporto
+GROUP BY citta
+),
+media_tot_voli as (
+SELECT avg(v.durataMinuti) as med
+FROM Volo as v 
+),
+dev_durata as (
+    SELECT STDEV(mtv.med) as dev
+    FROM media_tot_voli as mtv
+)
+SELECT mv.citta
+FROM media_voli as mv , dev_durata as d
+WHERE 
+
+
 
 
 
