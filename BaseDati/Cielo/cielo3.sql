@@ -62,7 +62,7 @@ durate medie dei voli in arrivo.
 WITH media_voli as (
 SELECT la.citta , avg(v.durataMinuti)
 FROM LuogoAeroporto as la , Volo as v , ArrPart as ap
-WHERE la.aeroporto = v.codice 
+WHERE ap.codice = v.codice
 AND ap.partenza = la.aeroporto
 GROUP BY citta
 ),
@@ -71,12 +71,12 @@ SELECT avg(v.durataMinuti) as med
 FROM Volo as v 
 ),
 dev_durata as (
-    SELECT STDEV(mtv.med) as dev
+    SELECT STDDEV_SAMP(mtv.med) as dev
     FROM media_tot_voli as mtv
 )
 SELECT mv.citta
 FROM media_voli as mv , dev_durata as d
-WHERE 
+WHERE  
 
 
 
