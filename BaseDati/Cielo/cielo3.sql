@@ -55,34 +55,27 @@ FROM part_ita as pa , media_tot as mt
 WHERE pa.med_part < mt.med_voli
 
 --query5
-5. Quali sono le città i cui voli in arrivo hanno una durata media che differisce di più
-di una deviazione standard dalla durata media di tutti i voli? Restituire città e
-durate medie dei voli in arrivo.
-
 WITH media_voli as (
-SELECT la.citta , avg(v.durataMinuti)
+SELECT la.citta , avg(v.durataMinuti) as dur_med
 FROM LuogoAeroporto as la , Volo as v , ArrPart as ap
 WHERE ap.codice = v.codice
-AND ap.partenza = la.aeroporto
-GROUP BY citta
+AND ap.arrivo = la.aeroporto
+GROUP BY la.citta
 ),
 media_tot_voli as (
-SELECT avg(v.durataMinuti) as med
+SELECT v.durataMinuti as sum_tot
 FROM Volo as v 
-),
-dev_durata as (
-    SELECT STDDEV_SAMP(mtv.med) as dev
-    FROM media_tot_voli as mtv
 )
-SELECT mv.citta
-FROM media_voli as mv , dev_durata as d
-WHERE  
+SELECT mv.citta , mv.dur_med
+FROM media_voli as mv ,media_tot_voli as mtv , Volo as v
+GROUP BY mv.citta , mv.dur_med 
+HAVING mv.dur_med > (avg(mtv.sum_tot) + STDDEV_SAMP(v.durataMinuti))
+OR  mv.dur_med < (avg(mtv.sum_tot) - STDDEV_SAMP(v.durataMinuti))
 
-
-
-
-
-
-
+--query6
 6. Quali sono le nazioni che hanno il maggior numero di città dalle quali partono voli
 diretti in altre nazioni?
+SELECT 
+FROM 
+WHERE 
+
