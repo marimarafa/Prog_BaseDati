@@ -78,7 +78,6 @@ WITH num_citta as (
     FROM LuogoAeroporto 
     GROUP BY nazione , aeroporto 
 )
-
 SELECT DISTINCT nc.nazione, nc.n_citta
 FROM LuogoAeroporto as la1 ,LuogoAeroporto as la2,ArrPart as ap,num_citta as nc
 WHERE ap.partenza = la1.aeroporto
