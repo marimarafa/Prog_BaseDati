@@ -73,9 +73,19 @@ HAVING mv.dur_med > (avg(mtv.sum_tot) + STDDEV_SAMP(v.durataMinuti))
 OR  mv.dur_med < (avg(mtv.sum_tot) - STDDEV_SAMP(v.durataMinuti))
 
 --query6
-6. Quali sono le nazioni che hanno il maggior numero di città dalle quali partono voli
-diretti in altre nazioni?
-SELECT 
-FROM 
-WHERE 
+WITH num_citta as (
+    SELECT nazione,aeroporto, count(citta) as n_citta
+    FROM LuogoAeroporto 
+    GROUP BY nazione , aeroporto 
+)
+
+SELECT DISTINCT nc.nazione, nc.n_citta
+FROM LuogoAeroporto as la1 ,LuogoAeroporto as la2,ArrPart as ap,num_citta as nc
+WHERE ap.partenza = la1.aeroporto
+AND la2.aeroporto = ap.arrivo
+AND la1.nazione <> la2.nazione
+AND la1.aeroporto <> la2.aeroporto
+AND nc.aeroporto = ap.partenza
+
+
 
