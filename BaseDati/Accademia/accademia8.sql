@@ -8,3 +8,6 @@ on a.giorno = ap.giorno
 WHERE p.id = ap.persona
 and a.persona = p.id
 and count(a.giorno) = 0
+
+--query 2
+
