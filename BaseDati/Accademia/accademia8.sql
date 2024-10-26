@@ -33,7 +33,7 @@ SELECT p.id , p.nome , p.cognome , p.stipendio
 FROM persona as p , stip_tot as st
 where p.posizione = 'Ricercatore'
 and st.max_stip < p.stipendio
-group by p.id
+group by p.id;
 
 --query4
 with bud_tot as (
@@ -46,15 +46,30 @@ from persona as p , progetto  as pr , AttivitaProgetto as ap, bud_tot as bt
 where pr.id = ap.progetto
 and p.id = ap.persona
 and bt.max_bud < pr.budget
-group by p.id
+group by p.id;
 
 --query5
-5. Quali sono i progetti con un budget inferiore allala media, ma con un numero
-complessivo di ore dedicate alle attività di ricerca sopra la media?
+WITH med_bud as (
+  SELECT avg(budget) AS budget_medio
+  FROM progetto
+),
+sum_durata as (
+  SELECT progetto, sum(OreDurata) AS ore_totali
+  FROM AttivitaProgetto
+  GROUP BY progetto
+),
+med_ore as (
+  SELECT avg(ore_totali) AS ore_medio
+  FROM sum_durata
+)
+SELECT pr.id, pr.nome
+FROM progetto as pr, AttivitaProgetto as ap, sum_durata as sd, med_bud, med_ore
+WHERE pr.id = ap.Progetto
+AND pr.id = sd.Progetto
+AND pr.budget < med_bud.budget_medio
+AND sd.ore_totali > med_ore.ore_medio
+GROUP BY pr.id;
 
-select
-from progetto as pr, 
-where
 
 
 

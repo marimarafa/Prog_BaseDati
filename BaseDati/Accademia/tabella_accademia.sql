@@ -66,7 +66,7 @@ CREATE TABLE WP (
 CREATE TABLE AttivitaProgetto (
 id NOT NULL,
 persona NOT NULL,
-proggetto NOT NULL,
+progetto NOT NULL,
 wp NOT NULL,
 giorno DATE,
 OreDurata NumeroOre,
