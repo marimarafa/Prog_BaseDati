@@ -15,22 +15,27 @@ having count (anp.giorno) = 0
 and count (atp.giorno)= 0;
 
       --versione 2
+      select pp.id , pp.nome ,pp.cognome
+      from Persona as pp , (
+        select p.id 
+        from persona as p
+        
+        except 
 
-      select id
-      from persona
-      except 
-      (
-        select distinct a.persona
-        from Assenza as a , AttivitaProgetto as ap
-        where a.persona = ap.persona
+        (
+          select distinct ass.persona
+          from(Assenza as ass left outer join AttivitaProgetto as ap
+          on ass.persona = ap.persona 
+            and ass.giorno = ap.giorno
+            ) left outer join AttivitaNonProgettuale as anp
+            on ass.persona = anp.persona
+              and ass.giorno = anp.giorno
+          where
+            ap.id is not null or anp.id is not null
+        )
+      ) p
+      where p.id = pp.id
 
-        union
-
-        select distinct a.persona
-        from Assenza as a , AttivitaNonProgettuale as anp
-        where a.persona = anp.persona
-
-      )
 
 
 --query2
