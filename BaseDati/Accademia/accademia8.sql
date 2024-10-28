@@ -14,11 +14,32 @@ group by p.id
 having count (anp.giorno) = 0
 and count (atp.giorno)= 0;
 
+      --versione 2
+
+      select id
+      from persona
+      except 
+      (
+        select distinct a.persona
+        from Assenza as a , AttivitaProgetto as ap
+        where a.persona = ap.persona
+
+        union
+
+        select distinct a.persona
+        from Assenza as a , AttivitaNonProgettuale as anp
+        where a.persona = anp.persona
+
+      )
+
+
 --query2
 SELECT p.id ,p.nome, p.cognome
 FROM persona AS p
-LEFT outer JOIN AttivitaProgetto AS ap ON p.id = ap.persona
-LEFT outer JOIN progetto AS pr ON pr.id = ap.progetto 
+LEFT outer JOIN AttivitaProgetto AS ap 
+ON p.id = ap.persona
+LEFT outer JOIN progetto AS pr 
+ON pr.id = ap.progetto 
 AND pr.nome = 'Pegasus'
 GROUP BY p.id
 having count(ap.progetto) = 0;
