@@ -1,18 +1,24 @@
 --query1
-Quali sono le persone (id, nome e cognome) che hanno avuto assenze solo nei
-giorni in cui non avevano alcuna attivitÃ (progettuali o non progettuali)?
+select pp.id , pp.nome ,pp.cognome
+  from Persona as pp , (
+    select p.id 
+    from persona as p
+    
+    except 
 
-select distinct p.id , p.nome , p.cognome
-from persona as p 
-join assenza  as a 
-on a.persona = p.id
-full  outer join Attivitanonprogettuale as  anp 
-on anp.giorno = a.giorno 
-full outer join AttivitaProgetto as atp 
-on atp.giorno = a.giorno 
-group by p.id
-having count (anp.giorno) = 0
-and count (atp.giorno)= 0;
+    (
+      select distinct ass.persona
+      from(Assenza as ass left outer join AttivitaProgetto as ap
+      on ass.persona = ap.persona 
+        and ass.giorno = ap.giorno
+        ) left outer join AttivitaNonProgettuale as anp
+        on ass.persona = anp.persona
+          and ass.giorno = anp.giorno
+      where
+        ap.id is not null or anp.id is not null
+    )
+  ) p
+  where p.id = pp.id
 
 --query2
 SELECT p.id ,p.nome, p.cognome
