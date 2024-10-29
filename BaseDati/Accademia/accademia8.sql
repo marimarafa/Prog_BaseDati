@@ -20,30 +20,7 @@ select pp.id , pp.nome ,pp.cognome
   ) p
   where p.id = pp.id
 
-      --versione 2
-      select pp.id , pp.nome ,pp.cognome
-      from Persona as pp , (
-        select p.id 
-        from persona as p
-        
-        except 
-
-        (
-          select distinct ass.persona
-          from(Assenza as ass left outer join AttivitaProgetto as ap
-          on ass.persona = ap.persona 
-            and ass.giorno = ap.giorno
-            ) left outer join AttivitaNonProgettuale as anp
-            on ass.persona = anp.persona
-              and ass.giorno = anp.giorno
-          where
-            ap.id is not null or anp.id is not null
-        )
-      ) p
-      where p.id = pp.id
-
-
-
+ 
 --query2
 SELECT p.id ,p.nome, p.cognome
 FROM persona AS p
