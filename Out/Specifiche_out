@@ -1,0 +1,6 @@
+------------------Specifiche classe Spettacolo
+seganalazione_spettacolo(titolo:Stringa,tipologia:tipologia,
+data_orario:DataOra):Spettacolo[]0..*
+pre:
+post:
+
