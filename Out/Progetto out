@@ -23,16 +23,22 @@
 	4.9 data_spettacolo : DataOra
 	-- consultare calendario di spettacolo (op)
 
-6. Persona 
+	6.1 Artista
+		6.5 nome arte 
+	6.2 Utente
 		6.1 nome
 		6.2 cognome
 		6.3 codice fiscale 
-	6.1 Artista(sottoclasse)
-		6.5 nome arte 
-	6.2 Utente(sottoclasse)
-		--6.5 prenotazione(op)
-		--6.6 consultazione(op)
+		--6.5 un utente puo iscriversi al servizio(uc)
+		--6.6 un untente puo prenotare uno o piu posti (uc)
+		--6.7 un utente puo consultare una lista di spettacoli 						di una certa tipologia e genere per un certo giorno
+		--6.8 un untente puo ricevere suggerimenti dal sistema di nuovi spettacoli 
 		--6.7 ricevere suggerimenti(op)
+5. Sistema:
+	5.1 memorizzazione dei dati dell'utente
+	5.2 segnalazione ad un utente l'insieme degli spettacoli programmati nei successivi 7 giorni, che sono dello stesso genere (anche se di tipologia diversa)
+dell’ultimo spettacolo da egli prenotato.
+	
 	
 	
 
