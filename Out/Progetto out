@@ -1,0 +1,43 @@
+1.Sede:
+	1.1 nome:Stringa
+	1.2 indirizzo:Indirizzo (citta)
+	1.3 possono essere provviste di piu sale (vd 2)
+2. Sala
+	2.0 numero sala :Intero> 0{id} 
+	2.1 una sala puo ospetare uno spettacolo (vd 4)
+	2.2 posti per singole sale  (vd 3)
+	2.3 numero posti:Intero
+3. Posto
+	3.1 numeri fila :Intero 
+	3.2 colonna :Intero
+	
+4. Spettacolo
+	4.1 titolo 
+	4.2 tipologia: 
+		4.2.1 concerto
+		4.2.2 rappresentazione teatrale
+		4.2.3 film
+	4.3 relativo genere
+	4.7 artisti che effetuano la performance (vd6)
+	4.8 sede (vd 1) con sala (vd 1.3) -> rappresentazione
+	4.9 data_spettacolo : DataOra
+	-- consultare calendario di spettacolo (op)
+
+6. Persona 
+		6.1 nome
+		6.2 cognome
+		6.3 codice fiscale 
+	6.1 Artista(sottoclasse)
+		6.5 nome arte 
+	6.2 Utente(sottoclasse)
+		--6.5 prenotazione(op)
+		--6.6 consultazione(op)
+		--6.7 ricevere suggerimenti(op)
+	
+	
+
+	
+	
+		
+
+	

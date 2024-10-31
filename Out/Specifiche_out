@@ -1,4 +1,44 @@
-------------------Specifiche classe Spettacolo
+				Specifiche use case 
+iscrizione_utente(nome:stringa,cogome:Stringa,codFisc:CodiceFiscale): Utente
+pre:
+	non deve esistere un u:Utente tale che :
+	u.codFisc = codFisc
+post:
+	viene creato l'oggetto u con i seguenti valori:
+	u.nome = nome
+	u.cognome = cognome
+	u.codFisc = codFisc
+result = u
+------------------------------------------------------------------
+prenotazione_posti(p:Posto): 
+pre: 
+	sia u:Utente l'oggetto associato all'attore che ha invocato l'operazione.
+	non esiste un link tra(u,p):posto_ut
+post:
+	viene creato il link (u,p):posto_ut
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 seganalazione_spettacolo(titolo:Stringa,tipologia:tipologia,
 data_orario:DataOra):Spettacolo[]0..*
 pre:
