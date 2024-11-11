@@ -11,7 +11,7 @@ from Volo as v , DurataTotaleVoli as dv
 group by v.codice , v.comp , dv.dur_tot
 having dv.dur_tot < v.durataMinuti
 
-
+--
 
 
 
