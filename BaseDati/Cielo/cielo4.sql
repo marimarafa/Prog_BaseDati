@@ -34,8 +34,6 @@ having dv.dur_tot < v.durataMinuti
 
 
 
-
-
 2. Quali sono le città che hanno piu” di un aeroporto e dove almeno uno di questi ha
 un volo operato da “Apitalia”?
 3. Quali sono le coppie di aeroporti (A, B) tali che esistono voli tra A e B ed il numero
