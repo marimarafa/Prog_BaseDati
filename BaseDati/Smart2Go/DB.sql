@@ -11,8 +11,8 @@ Sinistro(_id:serial_,istante:timestamp,veicolo:varchar)
 fk: (veicolo) references Veicolo(targa)
 _____________________________________________________
 
-CREATE DOMAIN CodiceFiscale as Varchar
-CHECK (value = 16);
+CREATE DOMAIN CodiceFiscale as Varchar(16)
+CHECK (VALUE ~ '^[A-Z0-9]{16}$');
 
 CREATE TABLE  UTENTE (
     cf CodiceFiscale not null
