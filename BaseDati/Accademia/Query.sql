@@ -21,3 +21,4 @@ from progetto
 --budget totale dei progetti nei quali è coinvolto. 
 
 
+z
