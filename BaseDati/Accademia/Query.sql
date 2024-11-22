@@ -56,7 +56,7 @@ from progetto as pr ,AttivitaProgetto as ap , Persona as p
 where pr.id = ap.progetto
 and p.id = ap.persona
 and pr.id = 5
-group by ap.OreDurata , p.id
+group by p.id
 
 --8. Qual è il numero medio di ore delle attività progettuali
 --svolte da ogni persona. Per ogni persona, restituire nome,

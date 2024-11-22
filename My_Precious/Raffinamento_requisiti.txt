@@ -1,49 +1,48 @@
 Raffinamento dei requisiti:
 1)Opere : 
-1.nome
-2.anno_realizzazione
-3. tecnica (opzionale)
-4. autore(vd3)
-5. corrente artistica (vd4)
-6. categoria (vd2)
+	1.nome
+	2.anno_realizzazione
+	3. tecnica (opzionale)
+	4. autore(vd3)
+	5. corrente artistica (vd4)
+	6. categoria (vd2)
 
 2)Categoria :
-1. nome 
+	1. nome 
 
 3)Autore :
-1. nome
-2. data nascita
-3. nome d'arte
-3. Deceduto:Booleano
-4. eventuale data di morte(opzionale)
-5. luogo nascita
-6. museo(vd 5)
+	1. nome
+	2. data nascita
+	3. nome d'arte
+	4. Deceduto:Booleano
+	5. eventuale data di morte(opzionale)
+	6. luogo nascita
+	7. museo(vd 5)
 
 4) Corrente Artistica:
-1.nome
+	1.nome
 
 5) Museo:
+	1.nome
 
 6) Esposizione:
-1. opere (vd 1)
-
+	1. opere (vd 1)
+	2.nome
 	7)Esposizione permanente (sotto classe esposizione)
-	8) Esposizione temporanee ( sotto classe esposizione)
-		1. nome 
+	8) Esposizione temporanee ( sotto classe esposizione) 
 		2. inizio:Data
 		3. fine :Data
 		4. prezzo_accesso
 9) Tariffa:
-1.nome
-2.prezzo_base :Reale >0
+	1.nome
+	2.prezzo_base :Reale >0
 
 10) Biglietto:
-1. tariffa(v9)
-2.istante :DataOra
-3.data:Data
+	1. tariffa(v9)
+	2.istante :DataOra
+	3.data:Data
 	11) Biglietto standard
 		1.esposizione permanante(vd 7)
 		2.prezzo: Reale >=0
 	12) Biglietto Extend access
 		1. esposizione permanente(vd7)
-		2.
